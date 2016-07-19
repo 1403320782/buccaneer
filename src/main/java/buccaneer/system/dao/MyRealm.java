@@ -14,7 +14,6 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -22,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import buccaneer.system.bean.Permission;
 import buccaneer.system.bean.Role;
 import buccaneer.system.bean.User;
 
@@ -52,6 +52,12 @@ public class MyRealm extends AuthorizingRealm {
 			set.add(role.getName());
 		}
 		info.setRoles(set);
+		Set<Permission> findPermissionsByUserID = permissionDao.findPermissionsByUserID(user.getId());
+		Set<String> stringPermissions = new HashSet<String>();
+		for (Permission permission : findPermissionsByUserID) {
+			stringPermissions.add(permission.getName());
+		}
+		info.setStringPermissions(stringPermissions);
 		return info;
 	}
 	@Override

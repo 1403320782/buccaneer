@@ -26,5 +26,11 @@
 		<property name="name" value="${hibernate.show_sql}"></property>
 	</bean>
 	
+	<!-- <aop:config>
+        <aop:advisor id="methodTimeLog" advice-ref="methodTimeAdvice" pointcut="execution(* *..service..*(..))"/>
+    </aop:config>
+    
+    <bean id="methodTimeAdvice" class="com.ty.tianyu.system.utils.MethodTimeAdvice"/> -->
+    
 	<context:component-scan base-package="buccaneer.system.dao,buccaneer.system.controller"></context:component-scan>
 </beans>
